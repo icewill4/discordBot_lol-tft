@@ -44,6 +44,3 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 client.login(token);
-
-//node deploy-commands pour mettre à jour le bot
-//node index pour lancer le bot
