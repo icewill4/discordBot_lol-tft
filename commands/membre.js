@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const axios = require("axios");
 const { CommandInteraction } = require("discord.js");
+const { riotApiKey } = require("../config.json");
 
 const members = require("../members-schema");
 
@@ -84,10 +86,17 @@ module.exports = {
         await members.create({
           pseudoDiscord: pseudoDiscord,
           pseudoLoL: pseudoLoL,
+          soloqTier: "null",
+          soloqRank: "null",
+          soloqLP: 0,
+          flexTier: "null",
+          flexRank: "null",
+          flexLP: 0,
         });
         await interaction.reply({
           content: `${pseudoDiscord} a été ajouté avec le pseudo ${pseudoLoL}`,
         });
+
         break;
       case "modifier":
         const nouveauPseudoLoL = encodeURIComponent(
@@ -100,6 +109,7 @@ module.exports = {
         await interaction.reply({
           content: `le compte ${pseudoLoL} de ${pseudoDiscord} est desormais ${nouveauPseudoLoL}`,
         });
+
         break;
       case "supprimer":
         await members.deleteOne({
