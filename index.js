@@ -29,7 +29,7 @@ for (const file of commandFiles) {
 
 //demarre le bot et connecte a la base de données
 client.once("ready", async () => {
-  await console.log("bot démarré");
+  console.log("bot démarré");
   await mongoose
     .connect(mongodbUrl, {
       keepAlive: true,
