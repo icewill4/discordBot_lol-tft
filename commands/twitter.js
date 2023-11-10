@@ -3,7 +3,7 @@ const { CommandInteraction, MessageActionRow, MessageButton } = require('discord
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('twitterlol')
+        .setName('twitter')
         .setDescription('donne le lien de mon twitter'),
 
     /**

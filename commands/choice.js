@@ -3,7 +3,7 @@ const { CommandInteraction } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('choicelol')
+        .setName('choice')
         .setDescription('Permet de faire un choix')
         .addStringOption(option =>
             option.setName('choice')

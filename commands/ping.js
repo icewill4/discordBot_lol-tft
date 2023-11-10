@@ -3,7 +3,7 @@ const { CommandInteraction } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("pinglol")
+    .setName("ping")
     .setDescription("Renvoie le nombre de ping"),
 
   /**

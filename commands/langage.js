@@ -3,7 +3,7 @@ const { CommandInteraction, MessageActionRow, MessageSelectMenu } = require('dis
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('langagelol')
+        .setName('langage')
         .setDescription('choisis ton langage'),
 
     /**
