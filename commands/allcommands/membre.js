@@ -1,9 +1,9 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const axios = require("axios");
 const { CommandInteraction } = require("discord.js");
-const { riotApiKey } = require("../config.json");
+const { riotApiKey } = require("../../config.json");
 
-const members = require("../members-schema");
+const members = require("../../members-schema");
 
 module.exports = {
   data: new SlashCommandBuilder()

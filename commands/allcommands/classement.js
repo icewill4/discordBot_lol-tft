@@ -2,9 +2,9 @@ const { SlashCommandBuilder, EmbedBuilder } = require("@discordjs/builders");
 const { CommandInteraction, MessageEmbed } = require("discord.js");
 
 const axios = require("axios");
-const { riotApiKey } = require("../config.json");
+const { riotApiKey } = require("../../config.json");
 
-const members = require("../members-schema");
+const members = require("../../members-schema");
 
 const tiers = {
   IRON: 0,

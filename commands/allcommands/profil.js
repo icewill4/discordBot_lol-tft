@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { CommandInteraction, MessageEmbed } = require("discord.js");
+const { CommandInteraction, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
-const { riotApiKey } = require("../config.json");
+const { riotApiKey } = require("../../config.json");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -33,17 +33,18 @@ module.exports = {
       return interaction.reply({ content: "Cet invocateur n'existe pas" });
     }
 
-    let profilEmbed = new MessageEmbed()
+    let profilEmbed = new EmbedBuilder()
       .setAuthor({
         name: profil.data.name,
-        iconURL: `http://ddragon.leagueoflegends.com/cdn/12.11.1/img/profileicon/${profil.data.profileIconId}.png`,
+        iconURL: `http://ddragon.leagueoflegends.com/cdn/13.21.1/img/profileicon/${profil.data.profileIconId}.png`,
       })
       .setThumbnail(
-        `http://ddragon.leagueoflegends.com/cdn/12.11.1/img/profileicon/${profil.data.profileIconId}.png`
+        `http://ddragon.leagueoflegends.com/cdn/13.21.1/img/profileicon/${profil.data.profileIconId}.png`
       )
-      .addField("Level", profil.data.summonerLevel.toString())
-      .addField("ID", profil.data.id.toString())
-      .setColor("RED");
+      .addFields([
+        { name :"Level", value: profil.data.summonerLevel.toString()},
+        { name: "ID", value: profil.data.id.toString()}])
+      .setColor("Red");
 
     console.log(pseudo);
     console.log(profil.data);

@@ -6,7 +6,7 @@ const {
   Message,
 } = require("discord.js");
 const axios = require("axios");
-const { riotApiKey } = require("../config.json");
+const { riotApiKey } = require("../../config.json");
 
 module.exports = {
   data: new SlashCommandBuilder()
