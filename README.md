@@ -7,8 +7,8 @@ npm run deploy (update the commands)
 Features TODO list:
 commands:
 
-/rank/{player}/(optionnal soloQ/flex) default both
-give the the rank of the player
+/profil/{playername}
+show the the rank and the level of the player
 
 /rankevo/{player}
 show the evolution of lp of the day of the player
