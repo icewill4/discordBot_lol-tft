@@ -18,3 +18,13 @@ show the rank of the players of the server
 
 
 
+
+add a config.json in the root folder:
+
+{
+    "clientId": "xxxxxxxxxxxxxxxxxx",
+    "guildId": "xxxxxxxxxxxxxxxxxxx",
+    "token": "xxxxxxxxxxxxxxxxxxxxxxxx.xxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "riotApiKey": "xxxxx-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "mongodbUrl": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
