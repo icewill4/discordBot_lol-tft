@@ -57,9 +57,9 @@ const execute = async (interaction) => {
 
   const type = interaction.options.getSubcommand();
 
-  const classement = new MessageEmbed()
+  const rank = new MessageEmbed()
     .setColor("#0099ff")
-    .setTitle(`Classement ${type}`);
+    .setTitle(`rank ${type}`);
 
   const sortedList = listeMembers.sort((a, b) => {
     const tierDiff = tiers[a[`${type}Tier`]] - tiers[b[`${type}Tier`]];
@@ -70,7 +70,7 @@ const execute = async (interaction) => {
 
   if (type !== "tft")
     sortedList.forEach((member, i) => {
-      classement.addField(
+      rank.addField(
         `${i + 1} ${member.pseudoLoL}`,
         `soloQ ${member[`${type}Tier`]} ${member[`${type}Rank`]} ${
           member[`${type}LP`]
@@ -79,21 +79,21 @@ const execute = async (interaction) => {
       );
     });
 
-  await interaction.reply({ embeds: [classement] });
+  await interaction.reply({ embeds: [rank] });
 };
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("classement")
-    .setDescription("Affiche le classement des membres")
+    .setName("rank")
+    .setDescription("Affiche le rank des membres")
     .addSubcommand((subcommand) =>
-      subcommand.setName("soloq").setDescription("classement soloQ")
+      subcommand.setName("soloq").setDescription("rank soloQ")
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("flex").setDescription("classement flex")
+      subcommand.setName("flex").setDescription("rank flex")
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("tft").setDescription("classement tft")
+      subcommand.setName("tft").setDescription("rank tft")
     ),
 
   /**
