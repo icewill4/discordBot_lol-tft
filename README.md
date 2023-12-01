@@ -4,17 +4,24 @@
 npm run start (launch the bot)
 npm run deploy (update the commands)
 
-Features TODO list:
-commands:
+Features done :
 
 /profil/{playername}
 show the the rank and the level of the player
+
+/spectate/{playername}
+generate a script to launch the game in spectator mode
+
+Features TODO list:
+commands:
 
 /rankevo/{player}
 show the evolution of lp of the day of the player
 
 /leaderboart/(optionnal flex) default soloQ
 show the rank of the players of the server
+
+
 
 
 
