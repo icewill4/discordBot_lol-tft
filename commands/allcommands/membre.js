@@ -18,13 +18,19 @@ module.exports = {
         .addUserOption((option) =>
           option
             .setName("pseudodiscord")
-            .setDescription("Entre le pseudo discord à ajoute")
+            .setDescription("Entre le pseudo discord à ajouter")
             .setRequired(true)
         )
         .addStringOption((option) =>
           option
             .setName("pseudolol")
             .setDescription("Entre le pseudo du nouveau membre")
+            .setRequired(true)
+        )
+        .addStringOption((option) =>
+          option
+            .setName("tag")
+            .setDescription("Entre le # du compte")
             .setRequired(true)
         )
     )
@@ -46,8 +52,20 @@ module.exports = {
         )
         .addStringOption((option) =>
           option
+            .setName("tag")
+            .setDescription("Entre # du compte")
+            .setRequired(true)
+        )
+        .addStringOption((option) =>
+          option
             .setName("nouveaupseudolol")
             .setDescription("Entre le nouveau pseudo lol ")
+            .setRequired(true)
+        )
+        .addStringOption((option) =>
+          option
+            .setName("nouveautag")
+            .setDescription("Entre le nouveau tag ")
             .setRequired(true)
         )
     )
@@ -67,6 +85,12 @@ module.exports = {
             .setDescription("Entre le pseudo du compte à supprimer")
             .setRequired(true)
         )
+        .addStringOption((option) =>
+          option
+            .setName("tag")
+            .setDescription("Entre le # du compte à supprimer")
+            .setRequired(true)
+        )
     ),
 
   /**
@@ -81,11 +105,16 @@ module.exports = {
       interaction.options.getString("pseudolol").split(" ").join("")
     );
 
+    const tag = encodeURIComponent(
+      interaction.options.getString("tag").replace("#", "").split(" ").join("")
+    );
+
     switch (interaction.options.getSubcommand()) {
       case "ajouter":
         await members.create({
           pseudoDiscord: pseudoDiscord,
           pseudoLoL: pseudoLoL,
+          tag: tag,
           soloqTier: "null",
           soloqRank: "null",
           soloqLP: 0,
@@ -94,7 +123,7 @@ module.exports = {
           flexLP: 0,
         });
         await interaction.reply({
-          content: `${pseudoDiscord} a été ajouté avec le pseudo ${pseudoLoL}`,
+          content: `${pseudoDiscord} a été ajouté avec le pseudo ${pseudoLoL}#${tag}`,
         });
 
         break;
@@ -102,12 +131,17 @@ module.exports = {
         const nouveauPseudoLoL = encodeURIComponent(
           interaction.options.getString("nouveaupseudolol").split(" ").join("")
         );
+        const nouveauTag = encodeURIComponent(
+          interaction.options.getString("nouveautag").replace("#", "").split(" ").join("")
+        );
         await members.updateOne(
           { pseudoDiscord: pseudoDiscord },
-          { pseudoLoL: nouveauPseudoLoL }
+          { pseudoLoL: nouveauPseudoLoL },
+          { tag: nouveauTag}
+
         );
         await interaction.reply({
-          content: `le compte ${pseudoLoL} de ${pseudoDiscord} est desormais ${nouveauPseudoLoL}`,
+          content: `le compte ${pseudoLoL}#${tag} de ${pseudoDiscord} est desormais ${nouveauPseudoLoL}#${nouveauTag}`,
         });
 
         break;
@@ -115,9 +149,10 @@ module.exports = {
         await members.deleteOne({
           pseudoDiscord: pseudoDiscord,
           pseudoLoL: pseudoLoL,
+          tag: tag,
         });
         await interaction.reply({
-          content: `le compte ${pseudoLoL} de ${pseudoDiscord} a été supprimé`,
+          content: `le compte ${pseudoLoL}#${tag} de ${pseudoDiscord} a été supprimé`,
         });
         break;
       default:
