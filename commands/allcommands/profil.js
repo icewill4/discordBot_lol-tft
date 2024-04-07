@@ -10,9 +10,15 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("pseudo")
-        .setDescription("Entre ton pseudo")
+        .setDescription("Entre le pseudo")
         .setRequired(true)
-    ),
+    )
+    .addStringOption((option) =>
+      option
+        .setName("tag")
+        .setDescription("Entre le tag")
+        .setRequired(true)
+  ),
 
   /**
    *
@@ -23,11 +29,27 @@ module.exports = {
     const pseudo = encodeURIComponent(
       interaction.options.getString("pseudo").split(" ").join("")
     );
+    const tag = encodeURIComponent(
+      interaction.options.getString("tag").replace("#", "").split(" ").join("")
+    );
+
+    let accountv1;
+
+    try {
+      accountv1 = await axios.get(
+        `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${pseudo}/${tag}?api_key=${riotApiKey}`
+      );
+      console.log(accountv1.data.puuid);
+    }catch (error) {
+      console.log('error', error);
+      return interaction.reply({ content: "Cet invocateur n'existe pas" });
+    }
+
     let summmonerv4;
     let leaguev4;
     try {
         summmonerv4 = await axios.get(
-        `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${pseudo}?api_key=${riotApiKey}`
+        `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${accountv1.data.puuid}?api_key=${riotApiKey}`
       );
 
         leaguev4 = await axios.get(
@@ -54,10 +76,10 @@ module.exports = {
     let profilEmbed = new EmbedBuilder()
       .setAuthor({
         name: summmonerv4.data.name,
-        iconURL: `http://ddragon.leagueoflegends.com/cdn/13.21.1/img/profileicon/${summmonerv4.data.profileIconId}.png`,
+        iconURL: `http://ddragon.leagueoflegends.com/cdn/14.7.1/img/profileicon/${summmonerv4.data.profileIconId}.png`,
       })
       .setThumbnail(
-        `http://ddragon.leagueoflegends.com/cdn/13.21.1/img/profileicon/${summmonerv4.data.profileIconId}.png`
+        `http://ddragon.leagueoflegends.com/cdn/14.7.1/img/profileicon/${summmonerv4.data.profileIconId}.png`
       )
       .addFields([
         { name :"Level", value: summmonerv4.data.summonerLevel.toString()},
@@ -66,8 +88,6 @@ module.exports = {
         { name: "Rank Flex", value: rankFlex}])
       .setColor("Red");
 
-    console.log(pseudo);
-    console.log(summmonerv4.data);
     await interaction.reply({ embeds: [profilEmbed] });
   },
 };
